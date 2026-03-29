@@ -93,10 +93,14 @@ export default function App() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const [isInputFocused, setIsInputFocused] = useState(false);
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const [newPin, setNewPin] = useState('');
   const [confirmPin, setConfirmPin] = useState('');
   const scrollRef = useRef<HTMLDivElement>(null);
   const idleTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const shouldCompactCat = activeCategory === 'chat' && (isInputFocused || isKeyboardOpen);
 
   // Idle timer to make Purrfect sleep
   useEffect(() => {
@@ -129,6 +133,23 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem('kuro_sessions', JSON.stringify(sessions));
   }, [sessions]);
+
+  useEffect(() => {
+    const viewport = window.visualViewport;
+    if (!viewport) return;
+
+    const updateKeyboardState = () => {
+      const keyboardHeight = window.innerHeight - viewport.height;
+      setIsKeyboardOpen(keyboardHeight > 150 && viewport.scale === 1);
+    };
+
+    updateKeyboardState();
+    viewport.addEventListener('resize', updateKeyboardState);
+
+    return () => {
+      viewport.removeEventListener('resize', updateKeyboardState);
+    };
+  }, []);
 
   const createNewChat = (category: ChatCategory = 'chat') => {
     const newSession: ChatSession = {
@@ -713,16 +734,24 @@ export default function App() {
               </header>
 
             {/* Cat Display Area */}
-            <div className="flex-shrink-0 h-[170px] sm:h-[220px] flex items-center justify-center bg-transparent relative">
+            <div
+              className={cn(
+                "flex-shrink-0 flex items-center justify-center bg-transparent relative transition-[height] duration-200",
+                shouldCompactCat ? "h-[96px]" : "h-[220px]"
+              )}
+            >
               <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
                 <div className="absolute top-5 left-10"><Sparkles size={30} /></div>
                 <div className="absolute bottom-5 right-10"><Sparkles size={30} /></div>
               </div>
               <motion.div
                 initial={{ scale: 0.7, opacity: 0 }}
-                animate={{ scale: 0.8, opacity: 1 }}
+                animate={{ scale: shouldCompactCat ? 0.56 : 0.82, opacity: 1 }}
                 transition={{ type: 'spring', damping: 20 }}
-                className="translate-y-1 sm:translate-y-2 sm:scale-100"
+                className={cn(
+                  "sm:scale-100",
+                  shouldCompactCat ? "translate-y-0" : "translate-y-1 sm:translate-y-2"
+                )}
               >
                 <Cat emotion={currentEmotion} />
               </motion.div>
@@ -919,6 +948,8 @@ export default function App() {
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
+                    onFocus={() => setIsInputFocused(true)}
+                    onBlur={() => setIsInputFocused(false)}
                     onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                     placeholder="Meow something..."
                     className="flex-1 p-2 text-xs border-2 border-black rounded-lg shadow-[2px_2px_0_#000] outline-none transition-all focus:shadow-[4px_4px_0_#000] placeholder:text-gray-400 bg-white"
