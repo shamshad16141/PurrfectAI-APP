@@ -1,0 +1,5 @@
+{
+  "name": "Purrfect Chat Assistant",
+  "description": "A minimal, mobile-optimized AI chat assistant featuring the expressive Luo Xiaohei cat.",
+  "requestFramePermissions": ["microphone"]
+}
