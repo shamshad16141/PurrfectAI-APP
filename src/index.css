@@ -36,12 +36,13 @@ html,
 body,
 #root {
     height: 100%;
+    overflow: hidden;
 }
 
 body {
     margin: 0;
     -webkit-tap-highlight-color: transparent;
-    overscroll-behavior-y: contain;
+    overscroll-behavior: none;
 }
 
 /* --- CAT STYLES --- */

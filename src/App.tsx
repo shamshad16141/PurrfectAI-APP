@@ -95,6 +95,9 @@ export default function App() {
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+  const [visibleViewportHeight, setVisibleViewportHeight] = useState<number>(() => {
+    return window.visualViewport ? Math.round(window.visualViewport.height) : window.innerHeight;
+  });
   const [newPin, setNewPin] = useState('');
   const [confirmPin, setConfirmPin] = useState('');
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -136,18 +139,29 @@ export default function App() {
 
   useEffect(() => {
     const viewport = window.visualViewport;
-    if (!viewport) return;
 
-    const updateKeyboardState = () => {
-      const keyboardHeight = window.innerHeight - viewport.height;
-      setIsKeyboardOpen(keyboardHeight > 150 && viewport.scale === 1);
+    const updateViewportState = () => {
+      const nextHeight = viewport ? Math.round(viewport.height) : window.innerHeight;
+      setVisibleViewportHeight(nextHeight);
+
+      const keyboardHeight = window.innerHeight - nextHeight;
+      const zoomScale = viewport ? viewport.scale : 1;
+      setIsKeyboardOpen(keyboardHeight > 140 && zoomScale === 1);
     };
 
-    updateKeyboardState();
-    viewport.addEventListener('resize', updateKeyboardState);
+    updateViewportState();
+    window.addEventListener('resize', updateViewportState);
+    if (viewport) {
+      viewport.addEventListener('resize', updateViewportState);
+      viewport.addEventListener('scroll', updateViewportState);
+    }
 
     return () => {
-      viewport.removeEventListener('resize', updateKeyboardState);
+      window.removeEventListener('resize', updateViewportState);
+      if (viewport) {
+        viewport.removeEventListener('resize', updateViewportState);
+        viewport.removeEventListener('scroll', updateViewportState);
+      }
     };
   }, []);
 
@@ -307,7 +321,13 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col h-[100dvh] min-h-[100dvh] bg-white text-gray-900 font-sans overflow-hidden">
+    <div
+      className="flex flex-col bg-white text-gray-900 font-sans overflow-hidden overscroll-none"
+      style={{
+        height: `${visibleViewportHeight}px`,
+        maxHeight: `${visibleViewportHeight}px`,
+      }}
+    >
       <AnimatePresence mode="wait">
         {!isSetupComplete ? (
           <motion.div
@@ -426,7 +446,7 @@ export default function App() {
             key="app"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="flex h-full relative"
+            className="flex h-full relative overflow-hidden"
           >
             {/* Sidebar Overlay */}
             <AnimatePresence>
@@ -942,7 +962,12 @@ export default function App() {
 
             {/* Input Area */}
             {activeCategory !== 'game' && activeCategory !== 'productivity' && activeCategory !== 'timer' && activeCategory !== 'finance' && (
-              <div className="p-2 sm:p-3 bg-white border-t border-gray-100 pb-[calc(env(safe-area-inset-bottom)+0.5rem)]">
+              <div
+                className={cn(
+                  "p-2 sm:p-3 bg-white border-t border-gray-100",
+                  isKeyboardOpen ? "pb-2" : "pb-[calc(env(safe-area-inset-bottom)+0.5rem)]"
+                )}
+              >
                 <div className="max-w-3xl mx-auto relative flex items-center gap-2">
                   <input
                     type="text"
