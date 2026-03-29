@@ -341,14 +341,18 @@ export const PickTheLock: React.FC<PickTheLockProps> = ({ onScoreUpdate, onGameO
     };
   }, []);
 
-  const handleInteraction = (e: React.MouseEvent | React.TouchEvent) => {
+  const handleInteraction = (e?: React.SyntheticEvent) => {
+    e?.preventDefault();
     if (gameState === 'playing') {
       checkHit();
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-full py-4 px-4 space-y-4 overflow-hidden">
+    <div
+      className="flex flex-col items-center justify-center h-full py-4 px-4 space-y-4 overflow-hidden select-none touch-none"
+      onPointerDown={handleInteraction}
+    >
       <div className="flex items-center justify-between w-full max-w-[240px]">
         <div className="flex flex-col">
           <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">
@@ -369,12 +373,8 @@ export const PickTheLock: React.FC<PickTheLockProps> = ({ onScoreUpdate, onGameO
 
       <div 
         ref={containerRef}
-        className={`relative w-full max-w-[220px] aspect-square bg-white border-4 border-black rounded-full shadow-[6px_6px_0_#000] overflow-hidden cursor-pointer active:translate-x-[1px] active:translate-y-[1px] active:shadow-[4px_4px_0_#000] transition-all flex-shrink-0 ${isAutoPlay ? 'border-blue-500 shadow-[6px_6px_0_#3b82f6]' : ''}`}
-        onMouseDown={handleInteraction}
-        onTouchStart={(e) => {
-          e.preventDefault();
-          handleInteraction(e);
-        }}
+        className={`relative w-full max-w-[220px] aspect-square bg-white border-4 border-black rounded-full shadow-[6px_6px_0_#000] overflow-hidden cursor-pointer active:translate-x-[1px] active:translate-y-[1px] active:shadow-[4px_4px_0_#000] transition-all flex-shrink-0 touch-none ${isAutoPlay ? 'border-blue-500 shadow-[6px_6px_0_#3b82f6]' : ''}`}
+        onPointerDown={handleInteraction}
       >
         <canvas ref={canvasRef} className="w-full h-full" />
         
