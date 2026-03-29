@@ -340,7 +340,7 @@ export default function App() {
             <div className="space-y-4">
               <div className="w-24 h-24 bg-black rounded-[2rem] flex items-center justify-center mx-auto shadow-[6px_8px_0_#000] border-2 border-black rotate-3 overflow-hidden">
                 <img 
-                  src="https://picsum.photos/seed/kuro-logo/200/200" 
+                  src="/logo.png" 
                   alt="Purrfect Logo" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -396,7 +396,7 @@ export default function App() {
             <div className="text-center space-y-4">
               <div className="w-20 h-20 bg-black rounded-3xl flex items-center justify-center mx-auto shadow-[4px_5px_0_#000] border-2 border-black overflow-hidden">
                 <img 
-                  src="https://picsum.photos/seed/kuro-logo/200/200" 
+                  src="/logo.png" 
                   alt="Purrfect Logo" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -470,7 +470,7 @@ export default function App() {
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center overflow-hidden">
                           <img 
-                            src="https://picsum.photos/seed/kuro-logo/100/100" 
+                            src="/logo.png" 
                             alt="Purrfect Logo" 
                             className="w-full h-full object-cover"
                             referrerPolicy="no-referrer"

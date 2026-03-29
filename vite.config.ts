@@ -12,7 +12,7 @@ export default defineConfig(({mode}) => {
       tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['apple-touch-icon.svg', 'pwa-192.svg', 'pwa-512.svg'],
+        includeAssets: ['logo.png', 'favicon.png', 'apple-touch-icon.png', 'pwa-192.png', 'pwa-512.png'],
         manifest: {
           name: 'Purrfect - AI Cat Assistant',
           short_name: 'Purrfect',
@@ -25,15 +25,15 @@ export default defineConfig(({mode}) => {
           orientation: 'portrait-primary',
           icons: [
             {
-              src: 'pwa-192.svg',
+              src: 'pwa-192.png',
               sizes: '192x192',
-              type: 'image/svg+xml',
+              type: 'image/png',
               purpose: 'any',
             },
             {
-              src: 'pwa-512.svg',
+              src: 'pwa-512.png',
               sizes: '512x512',
-              type: 'image/svg+xml',
+              type: 'image/png',
               purpose: 'any maskable',
             },
           ],
