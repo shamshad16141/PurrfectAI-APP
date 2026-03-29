@@ -286,7 +286,7 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-white text-gray-900 font-sans overflow-hidden">
+    <div className="flex flex-col h-[100dvh] min-h-[100dvh] bg-white text-gray-900 font-sans overflow-hidden">
       <AnimatePresence mode="wait">
         {!isSetupComplete ? (
           <motion.div
@@ -294,7 +294,7 @@ export default function App() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.1 }}
-            className="flex-1 flex flex-col items-center justify-center p-8 space-y-8 text-center"
+            className="flex-1 flex flex-col items-center justify-center p-5 sm:p-8 space-y-8 text-center"
           >
             <div className="space-y-4">
               <div className="w-24 h-24 bg-black rounded-[2rem] flex items-center justify-center mx-auto shadow-[6px_8px_0_#000] border-2 border-black rotate-3 overflow-hidden">
@@ -305,7 +305,7 @@ export default function App() {
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <h1 className="text-4xl font-black tracking-tighter uppercase italic">Welcome to Purrfect</h1>
+              <h1 className="text-3xl sm:text-4xl font-black tracking-tighter uppercase italic">Welcome to Purrfect</h1>
               <p className="text-gray-500 max-w-xs mx-auto">First, let's secure your expressive cat assistant with a 4-digit PIN.</p>
             </div>
 
@@ -350,7 +350,7 @@ export default function App() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="flex-1 flex flex-col items-center justify-center p-6 space-y-12"
+            className="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 space-y-10 sm:space-y-12"
           >
             <div className="text-center space-y-4">
               <div className="w-20 h-20 bg-black rounded-3xl flex items-center justify-center mx-auto shadow-[4px_5px_0_#000] border-2 border-black overflow-hidden">
@@ -423,7 +423,7 @@ export default function App() {
                     animate={{ x: 0 }}
                     exit={{ x: '-100%' }}
                     transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                    className="absolute top-0 left-0 bottom-0 w-72 bg-white border-r-2 border-black z-[120] flex flex-col shadow-[8px_0_0_rgba(0,0,0,0.05)]"
+                    className="absolute top-0 left-0 bottom-0 w-[82vw] max-w-72 bg-white border-r-2 border-black z-[120] flex flex-col shadow-[8px_0_0_rgba(0,0,0,0.05)]"
                   >
                     <div className="p-6 border-b-2 border-black flex items-center justify-between bg-black text-white">
                       <div className="flex items-center gap-3">
@@ -521,7 +521,7 @@ export default function App() {
                     animate={{ x: 0 }}
                     exit={{ x: '100%' }}
                     transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                    className="absolute top-0 right-0 bottom-0 w-72 bg-white border-l-2 border-black z-[120] flex flex-col shadow-[-8px_0_0_rgba(0,0,0,0.05)]"
+                    className="absolute top-0 right-0 bottom-0 w-[82vw] max-w-72 bg-white border-l-2 border-black z-[120] flex flex-col shadow-[-8px_0_0_rgba(0,0,0,0.05)]"
                   >
                     <div className="p-6 border-b-2 border-black flex items-center justify-between bg-black text-white">
                       <div className="flex items-center gap-2">
@@ -603,7 +603,7 @@ export default function App() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="absolute inset-0 z-[100] bg-white flex flex-col p-6"
+                    className="absolute inset-0 z-[100] bg-white flex flex-col p-4 sm:p-6 overflow-y-auto"
                   >
                     <div className="flex items-center justify-between mb-12">
                       <h2 className="text-3xl font-black uppercase italic tracking-tighter">Settings</h2>
@@ -685,7 +685,7 @@ export default function App() {
               </AnimatePresence>
 
               {/* Header */}
-              <header className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+              <header className="flex items-center justify-between px-3 sm:px-6 py-3 sm:py-4 border-b border-gray-100 bg-white/80 backdrop-blur-md sticky top-0 z-50">
                 <button 
                   onClick={() => setIsSidebarOpen(true)}
                   className="p-2 text-gray-400 hover:text-black transition-colors rounded-full hover:bg-gray-50"
@@ -713,16 +713,16 @@ export default function App() {
               </header>
 
             {/* Cat Display Area */}
-            <div className="flex-shrink-0 h-[220px] flex items-center justify-center bg-transparent relative">
+            <div className="flex-shrink-0 h-[170px] sm:h-[220px] flex items-center justify-center bg-transparent relative">
               <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
                 <div className="absolute top-5 left-10"><Sparkles size={30} /></div>
                 <div className="absolute bottom-5 right-10"><Sparkles size={30} /></div>
               </div>
               <motion.div
                 initial={{ scale: 0.7, opacity: 0 }}
-                animate={{ scale: 0.85, opacity: 1 }}
+                animate={{ scale: 0.8, opacity: 1 }}
                 transition={{ type: 'spring', damping: 20 }}
-                className="translate-y-2"
+                className="translate-y-1 sm:translate-y-2 sm:scale-100"
               >
                 <Cat emotion={currentEmotion} />
               </motion.div>
@@ -734,7 +734,7 @@ export default function App() {
               className={cn(
                 "flex-1 min-h-0 scroll-smooth",
                 (activeCategory === 'chat') 
-                  ? "overflow-y-auto px-4 py-6 space-y-6" 
+                  ? "overflow-y-auto px-3 sm:px-4 py-4 sm:py-6 space-y-4 sm:space-y-6" 
                   : "overflow-hidden"
               )}
             >
@@ -913,7 +913,7 @@ export default function App() {
 
             {/* Input Area */}
             {activeCategory !== 'game' && activeCategory !== 'productivity' && activeCategory !== 'timer' && activeCategory !== 'finance' && (
-              <div className="p-3 bg-white border-t border-gray-100">
+              <div className="p-2 sm:p-3 bg-white border-t border-gray-100 pb-[calc(env(safe-area-inset-bottom)+0.5rem)]">
                 <div className="max-w-3xl mx-auto relative flex items-center gap-2">
                   <input
                     type="text"

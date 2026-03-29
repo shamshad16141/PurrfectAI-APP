@@ -32,6 +32,18 @@
     --heart: #ff4d4d;
 }
 
+html,
+body,
+#root {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: contain;
+}
+
 /* --- CAT STYLES --- */
 
 .cat {

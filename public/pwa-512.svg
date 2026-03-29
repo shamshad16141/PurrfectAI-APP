@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Purrfect app icon">
+  <rect width="512" height="512" rx="104" fill="#000000"/>
+  <g transform="translate(256 274)">
+    <path d="M-136 -92 L-84 -190 L-24 -98 Z" fill="#ffffff"/>
+    <path d="M136 -92 L84 -190 L24 -98 Z" fill="#ffffff"/>
+    <ellipse cx="0" cy="0" rx="142" ry="116" fill="#ffffff"/>
+    <circle cx="-52" cy="-12" r="16" fill="#000000"/>
+    <circle cx="52" cy="-12" r="16" fill="#000000"/>
+    <path d="M-38 48 Q0 84 38 48" fill="none" stroke="#000000" stroke-width="16" stroke-linecap="round"/>
+  </g>
+</svg>
